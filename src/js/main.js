@@ -134,6 +134,13 @@ const objetoDeAssets = {
         autoplay: false,
       },
     },
+    {
+      name: "cancionVictoria",
+      source: "./src/audio/win.mp3",
+      options: {
+        autoplay: false,
+      },
+    },
   ],
 };
 
@@ -316,7 +323,11 @@ function update() {
   // Metodo que sirve para que el usuario se mueva, al igual que la camara
   playerMove();
 
-  if(chest.seTocan(player) && collectedChestKey >= 2) win = true;
+  if(chest.seTocan(player) && collectedChestKey >= 2) {
+    win = true
+    assetManager.assets.audios["musicaFondo"].pause();
+    assetManager.assets.audios["cancionVictoria"].play();
+  };
 
   // Si gana, mostrar la pantalla de victoria
   if(win) {
