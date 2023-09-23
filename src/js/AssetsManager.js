@@ -39,6 +39,7 @@ export class AssetManager {
       const audio = new Audio(a.source); 
       audio.preload = true;
       audio.autoplay = a.options.autoplay ?? false;
+      audio.volume = 0.5;
       audio.onloadedmetadata = this.checkLoadedAssets;
 
       audios[a.name] = audio;
