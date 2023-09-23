@@ -15,16 +15,37 @@ export class AssetManager {
     this.assetsCount = characters.length + objects.length + audios.length;
 
     this.loadObjects();
+    this.loadAudios();
   };
 
   loadObjects = () => {
     let o = {};
+    let c = {};
+
     this.assets.objects.forEach((value) => {
       o[value.name] = this.cropAsset(value.info);
     });
+    this.assets.characters.forEach((value) => {
+      c[value.name] = this.cropAsset(value.info);
+    });
 
     this.assets.objects = o;
+    this.assets.characters = c;
   };
+
+  loadAudios = () => {
+    let audios = {};
+    this.assets.audios.forEach((a) => {
+      const audio = new Audio(a.source); 
+      audio.preload = true;
+      audio.autoplay = a.options.autoplay ?? false;
+      audio.onloadedmetadata = this.checkLoadedAssets;
+
+      audios[a.name] = audio;
+    })
+
+    this.assets.audios = audios;
+  }
 
   cropAsset = ({ x, y, x2, y2, escala, nuevoAncho, nuevoAlto }) => {
     const canvasVirtual = document.createElement("canvas");

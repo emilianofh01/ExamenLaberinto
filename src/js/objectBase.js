@@ -9,12 +9,12 @@ export class ObjectBase {
     }
 
     paint() {
-        this.ctx.drawImage(this.image, this.x, this.y);
+        this.ctx.drawImage(this.image, this.x, this.y, this.width ?? this.image.width, this.height ?? this.image.height);
     }
 
     seTocan(target) {
-        let { x, y } = this.coord;
-        let { x: targetX, y: targetY } = target.coord;
+        let { x, y } = this;
+        let { x: targetX, y: targetY } = target;
     
         return (
           x <= targetX + target.width &&
